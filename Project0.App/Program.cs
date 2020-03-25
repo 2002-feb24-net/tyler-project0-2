@@ -8,6 +8,8 @@ namespace Project0.App
     {
         static void Main()
         {
+            int userMain = 0;
+
             var start = new Begin();
             start.Intro();
 
@@ -15,9 +17,25 @@ namespace Project0.App
             NewOrOld(ctx, cust1);
             Console.WriteLine();
 
-            var store1 = new Store();
-            store1.DisplayDB();
+            store1.GroupStore(userMain);
+            pg1.DisplayDB();
+            pg1.Decide(userMain);
+
+
         }
+
+        //public static void AddToOrder(Customer c1)
+        //{
+        //    _ = new CustomerOrder
+        //    {
+        //        CustomerId = c1.Id,
+        //        StoreId = store1.Id,
+        //        Total =  o1
+
+        //    };
+
+
+        //}
 
         public static void NewOrOld(Project0Context ctx, Customer cust1)
         {
