@@ -16,6 +16,9 @@ namespace Project0.Data.Entities
         }
 
         public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<CustomerOrder> CustomerOrder { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ProductGroup> ProductGroup { get; set; }
         public virtual DbSet<Store> Store { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -53,6 +56,87 @@ namespace Project0.Data.Entities
 
                 entity.Property(e => e.UserName)
                     .HasMaxLength(20)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CustomerOrder>(entity =>
+            {
+                entity.HasKey(e => e.OrderId);
+
+                entity.ToTable("Customer_Order");
+
+                entity.Property(e => e.OrderId)
+                    .HasColumnName("Order_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.CustomerId).HasColumnName("Customer_ID");
+
+                entity.Property(e => e.OrderDate)
+                    .HasColumnName("Order_Date")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.StoreId).HasColumnName("Store_ID");
+
+                entity.Property(e => e.Total).HasColumnType("money");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.CustomerOrder)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Customer_Order_Customer");
+
+                entity.HasOne(d => d.Store)
+                    .WithMany(p => p.CustomerOrder)
+                    .HasForeignKey(d => d.StoreId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Customer_Order_Store");
+            });
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.Property(e => e.ProductId).HasColumnName("Product_ID");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.Price).HasColumnType("money");
+
+                entity.Property(e => e.ProductGroupId).HasColumnName("ProductGroupID");
+
+                entity.Property(e => e.ProductName)
+                    .IsRequired()
+                    .HasColumnName("Product_Name")
+                    .HasMaxLength(40)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StoreId).HasColumnName("StoreID");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.OrderId)
+                    .HasConstraintName("FK_Product_Customer_Order");
+
+                entity.HasOne(d => d.ProductGroup)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.ProductGroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_ProductGroup1");
+
+                entity.HasOne(d => d.Store)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.StoreId)
+                    .HasConstraintName("FK_Product_Store");
+            });
+
+            modelBuilder.Entity<ProductGroup>(entity =>
+            {
+                entity.HasKey(e => e.GroupId)
+                    .HasName("PK__ProductG__31981269D975BCD4");
+
+                entity.Property(e => e.GroupId).HasColumnName("Group_ID");
+
+                entity.Property(e => e.GroupName)
+                    .HasColumnName("Group_Name")
+                    .HasMaxLength(30)
                     .IsUnicode(false);
             });
 

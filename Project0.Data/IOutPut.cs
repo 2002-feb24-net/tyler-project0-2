@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Project0.Data
 {
-    interface IOutPut
+    public interface IOutPut
     {
-        void DisplayDB();
+        void DisplayDB(int count);
     }
 }

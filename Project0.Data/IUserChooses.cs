@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project0.Data
 {
-    interface IUserChooses
+     public interface IUserChooses
     {
         void Decide(int userIn);
     }

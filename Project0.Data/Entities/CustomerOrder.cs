@@ -5,6 +5,11 @@ namespace Project0.Data.Entities
 {
     public partial class CustomerOrder
     {
+        public CustomerOrder()
+        {
+            Product = new HashSet<Product>();
+        }
+
         public int OrderId { get; set; }
         public int StoreId { get; set; }
         public int CustomerId { get; set; }
@@ -13,5 +18,6 @@ namespace Project0.Data.Entities
 
         public virtual Customer Customer { get; set; }
         public virtual Store Store { get; set; }
+        public virtual ICollection<Product> Product { get; set; }
     }
 }
