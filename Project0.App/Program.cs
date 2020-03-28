@@ -32,6 +32,8 @@ namespace Project0.App
                         break;
                 }
 
+                Console.WriteLine();
+
 
 
 
