@@ -65,9 +65,7 @@ namespace Project0.Data.Entities
 
                 entity.ToTable("Customer_Order");
 
-                entity.Property(e => e.OrderId)
-                    .HasColumnName("Order_ID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
 
                 entity.Property(e => e.CustomerId).HasColumnName("Customer_ID");
 

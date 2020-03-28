@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Project0.Data
 {
-    public class Load : IUserChooses
+    public class Load
     {
         private static readonly Project0Context ctx = new Project0Context();
         public static Order o1 = new Order();
@@ -17,7 +17,7 @@ namespace Project0.Data
                 using (var ctx = new Project0Context())
                 {
                     var c = ctx.Customer.FirstOrDefault(p => p.FirstName == s);
-                    Console.WriteLine($"{c.FirstName} {c.LastName} {c.Id}");
+                    Console.WriteLine($"Customer Name: {c.FirstName} {c.LastName} Customer ID: {c.Id}");
                     Console.WriteLine();
                     Console.Write("Please any button to go back: ");
                     Console.ReadLine();
@@ -28,13 +28,16 @@ namespace Project0.Data
             {
                 Console.WriteLine("Couldn't find that name");
                 Console.WriteLine();
+                Console.Write("Press any button to go back");
+                Console.ReadLine();
                 MainMenu();
             }
         }
 
         public void MainMenu()
         {
-            string[] options = { "Add a customer", "Search for a customer", "Order" };
+            Customer c1 = new Customer();
+            string[] options = { "Add a customer", "Search for a customer", "Order", "Search for a customer's order details", "Search for orders by the store's ID" };
             int num1 = 0;
 
             for (int i = 1; i <= options.Length; i++)
@@ -44,7 +47,7 @@ namespace Project0.Data
 
             Console.WriteLine();
             Console.Write("Press a number: ");
-            Decide(num1);
+            Decide(num1, c1);
         }
 
         public void AddCustomer(Customer cust1)
@@ -78,6 +81,30 @@ namespace Project0.Data
                 }
         }
 
+        public void SearchCustoemrOrderInStore()
+        {
+            Console.WriteLine("Store's ID are 1 through 4");
+            using(var ctx = new Project0Context())
+            {
+                Console.Write("Enter a store's ID:");
+                int searchstore = int.Parse(Console.ReadLine());
+                var storeInfo = from type in ctx.CustomerOrder
+                                where type.StoreId == searchstore
+                                select type;
+
+                Console.WriteLine();
+                Console.WriteLine("List of all the stores");
+                foreach (var item in storeInfo)
+                {
+                    Console.WriteLine($"OrderID: {item.OrderId} Cusermer ID: {item.CustomerId} Date Ordered: {item.OrderDate} Total: ${item.Total}");
+                }
+                Console.WriteLine();
+                Console.Write("Press any button to go back: ");
+                Console.ReadLine();
+                MainMenu();
+            }
+        }
+
         public void UserNamePass(Customer cust1)
         {
             string password2 = "";
@@ -104,7 +131,7 @@ namespace Project0.Data
                 UserNamePass(cust1);
         }
 
-        public int OldCustomer(Customer c1)
+        public Customer OldCustomer(Customer c1)
         {
             using(var ct  = new Project0Context())
             {
@@ -116,13 +143,13 @@ namespace Project0.Data
                     Console.Write("What is your password: ");
                     string text2 = Console.ReadLine();
 
-                    var p = ct.Customer.FirstOrDefault(a => a.UserName == text);
-                    if (p.Password == text2)
+                    var customer = ct.Customer.FirstOrDefault(a => a.UserName == text);
+                    if (customer.Password == text2)
                     {
-                        Console.WriteLine($"Welcome back {p.FirstName}! ");
+                        Console.WriteLine($"Welcome back {customer.FirstName}! ");
                         
                     }
-                    return p.Id;
+                    return customer;
                 }
                 catch (NullReferenceException)
                 {
@@ -130,7 +157,7 @@ namespace Project0.Data
 
                     Console.WriteLine("Couldn't find that user:");
                     Again(text3, c1);
-                    return 0;
+                    return new Customer(); // all null values
                     
                 }
                 
@@ -157,7 +184,7 @@ namespace Project0.Data
             }
         }
 
-        public void Decide(int userIn)
+        public void Decide(int userIn, Customer customer)
         {
             var cust1 = new Customer();
             var load = new Load();
@@ -174,7 +201,16 @@ namespace Project0.Data
                         SearchCust(load);
                         break;
                     case 3:
-                        o1.PickStore();
+                        var order = new Order();
+                        var store = order.PickStore();
+                        var groupID = order.Decide();
+                        order.PlaceOrder(groupID, store, customer);
+                        break;
+                    case 4:
+                        SearchCustoemrOrderInStore();
+                        break;
+                    case 5:
+                        SearchForCustomerOrder();
                         break;
                     default:
                         Console.WriteLine("That's not an option");
@@ -186,6 +222,31 @@ namespace Project0.Data
             {
                 Console.WriteLine("Please enter something");
                 Console.WriteLine();
+                MainMenu();
+            }
+        }
+
+        public void SearchForCustomerOrder()
+        {
+            Console.WriteLine();
+            using (var ctx = new Project0Context())
+            {
+                Console.Write("Enter a Customer's name:");
+                string customerName = Console.ReadLine();
+                var storeInfo = from type in ctx.CustomerOrder
+                                where type.Customer.FirstName == customerName
+                                select type;
+
+                Console.WriteLine();
+                Console.Write("List of all ");
+                Console.WriteLine();
+                foreach (var item in storeInfo)
+                {
+                    Console.WriteLine($"OrderID: {item.OrderId} Store ID: {item.StoreId} Date Ordered: {item.OrderDate} Total: ${item.Total}");
+                }
+                Console.WriteLine();
+                Console.Write("Press any button to go back: ");
+                Console.ReadLine();
                 MainMenu();
             }
         }

@@ -16,30 +16,27 @@ namespace Project0.App
             string mainInput = Console.ReadLine();
             Console.WriteLine();
 
-            bool wrongChoice = true;
-            do
+            Customer customer = new Customer();
                 switch (mainInput)
                 {
                     case "y":
-                        load.OldCustomer(mainCust);
-                        wrongChoice = false;
+                        customer = load.OldCustomer(mainCust); // returns customer object from db
                         break;
                     case "n":
                         load.AddCustomer(mainCust);
-                        wrongChoice = false;
                         break;
                     default:
                         Console.WriteLine("That's not an option");
                         Console.WriteLine();
+                        
                         break;
                 }
-            while (wrongChoice);
 
 
 
 
             /*L1.MainMenu();*/
-            string[] options = { "Add a customer", "Search for a customer", "Order" };
+            string[] options = { "Add a customer", "Search for a customer", "Order", "Search for a customer's order details", "Search for orders by the store's ID" };
             int num1 = 0;
 
             for (int i = 1; i <= options.Length; i++)
@@ -67,8 +64,14 @@ namespace Project0.App
                         var order = new Order();
                         var store = order.PickStore();
                         var groupID = order.Decide();
-/*                        order.PlaceOrder(groupID, store);
-*/                        
+                        order.PlaceOrder(groupID, store, customer);
+                        break;
+                    case 4:
+                        load.SearchForCustomerOrder();
+                        
+                        break;
+                    case 5:
+                        load.SearchCustoemrOrderInStore();
                         break;
                     default:
                         Console.WriteLine("That's not an option");
@@ -82,6 +85,8 @@ namespace Project0.App
                 Console.WriteLine();
                 load.MainMenu(); // back to the top if error
             }
+
+            //load.MainMenu();
 
         }
 
