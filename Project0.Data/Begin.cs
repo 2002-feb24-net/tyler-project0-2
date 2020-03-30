@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Project0.Data
 {
-    public class Begin : IOutPut, IUserChooses
+    public class Begin
     {
         public static Project0Context context = new Project0Context();
         public static CustomerOrder cart = new CustomerOrder();
@@ -28,112 +28,112 @@ namespace Project0.Data
             Console.WriteLine();
         }
 
-        public void Intro()
-        {
-            int num3 = 0;
-            int num4 = 1;
+        //public void Intro()
+        //{
+        //    int num3 = 0;
+        //    int num4 = 1;
 
-            Prompt();
-            ExitBAck();
-            DisplayDB(num3);
-            Decide(num4);
+        //    Prompt();
+        //    ExitBAck();
+        //    DisplayDB(num3);
+        //    Decide(num4);
 
-        }
+        //}
 
-        public void DisplayDB(int count)
-        {
-            count = 1;
-            int num1 = 0;
+        //public void DisplayDB(int count)
+        //{
+        //    count = 1;
+        //    int num1 = 0;
 
-            foreach (var item in context.ProductGroup)
-            {
-                Console.WriteLine($"{count}. \t {item.GroupName}");
-                count++;
-            }
-            Console.WriteLine();
-            Console.Write("What would you like? ");
-        }
+        //    foreach (var item in context.ProductGroup)
+        //    {
+        //        Console.WriteLine($"{count}. \t {item.GroupName}");
+        //        count++;
+        //    }
+        //    Console.WriteLine();
+        //    Console.Write("What would you like? ");
+        //}
 
-        public void ExitBAck()
-        {
-            Console.WriteLine($"Press 8 to go to previous menu");
-            Console.WriteLine("Press 0 to exit");
-            Console.WriteLine();
-        }
+        //public void ExitBAck()
+        //{
+        //    Console.WriteLine($"Press 8 to go to previous menu");
+        //    Console.WriteLine("Press 0 to exit");
+        //    Console.WriteLine();
+        //}
 
-        public void Decide(int userIn)
-        {
-            userIn = int.Parse(Console.ReadLine());
-            //PageStruct(userIn);
-            switch(userIn)
-            {
-                case 1:
-                    PageStruct(1);
-                    break;
-                case 2:
-                    PageStruct(2);
-                    break;
-                case 3:
-                    PageStruct(3);
-                    break;
-                case 4:
-                    PageStruct(4);
-                    break;
-                case 5:
-                    PageStruct(5);
-                    break;
-                case 8:
-                    var o2 = new Order();
-                    o2.PickStore();
-                    break;
-                case 0:
-                    Console.WriteLine("Good bye!");
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Decide(userIn);
-                    break;
-            }
-        }
+        //public void Decide(int userIn)
+        //{
+        //    userIn = int.Parse(Console.ReadLine());
+        //    //PageStruct(userIn);
+        //    switch(userIn)
+        //    {
+        //        case 1:
+        //            PageStruct(1);
+        //            break;
+        //        case 2:
+        //            PageStruct(2);
+        //            break;
+        //        case 3:
+        //            PageStruct(3);
+        //            break;
+        //        case 4:
+        //            PageStruct(4);
+        //            break;
+        //        case 5:
+        //            PageStruct(5);
+        //            break;
+        //        case 8:
+        //            var o2 = new Order();
+        //            o2.PickStore();
+        //            break;
+        //        case 0:
+        //            Console.WriteLine("Good bye!");
+        //            Environment.Exit(0);
+        //            break;
+        //        default:
+        //            Decide(userIn);
+        //            break;
+        //    }
+        //}
 
-        public void PageStruct(int num1)
-        {
-            using (var ctx = new Project0Context())
-            {
+        //public void PageStruct(int num1)
+        //{
+        //    using (var ctx = new Project0Context())
+        //    {
 
-                    var c = ctx.ProductGroup.FirstOrDefault(a => a.GroupId == num1);
-                    var d = ctx.Product.FirstOrDefault(b => b.ProductId == c.GroupId);
-
-
-
-                    string select = "";
+        //            var c = ctx.ProductGroup.FirstOrDefault(a => a.GroupId == num1);
+        //            var d = ctx.Product.FirstOrDefault(b => b.ProductId == c.GroupId);
 
 
 
-                    string mesg = "Welcome to the " + c.GroupName + " Page!";
-                    Console.WriteLine(mesg);
-                    Border(mesg);
-                    var list1 = from type in ctx.Product
-                                where type.ProductGroupId == num1
-                                select type;
+        //            string select = "";
 
-                    Console.Write("Type ");
-                    foreach (var item in list1)
-                    {
-                        Console.Write($"'{item.ProductName}' ");
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine();
 
-                    foreach (var item2 in list1)
-                    {
-                        Console.WriteLine($"{item2.ProductName} {item2.ProductGroupId} ${item2.Price}");
-                    }
-                    //SelectOrder(select);
-                    BackAgain();
+
+        //            string mesg = "Welcome to the " + c.GroupName + " Page!";
+        //            Console.WriteLine(mesg);
+        //            Border(mesg);
+        //            var list1 = from type in ctx.Product
+        //                        where type.ProductGroupId == num1
+        //                        select type;
+
+        //            Console.Write("Type ");
+        //            foreach (var item in list1)
+        //            {
+        //                Console.Write($"'{item.ProductName}' ");
+        //            }
+        //            Console.WriteLine();
+        //            Console.WriteLine();
+
+        //            foreach (var item2 in list1)
+        //            {
+        //                Console.WriteLine($"{item2.ProductName} {item2.ProductGroupId} ${item2.Price}");
+        //            }
+        //            //SelectOrder(select);
+        //            BackAgain();
                
-            }
-        }
+        //    }
+        //}
 
         //public void SelectOrder(string orderIn)
         //{
@@ -174,24 +174,24 @@ namespace Project0.Data
         //    }
         //}
 
-        public void BackAgain()
-        {
-            int num5 = 0;
-            int num6 = 0;
+        //public void BackAgain()
+        //{
+        //    int num5 = 0;
+        //    int num6 = 0;
 
-            Console.WriteLine("Great choice! Are you ready to check out? (y/n)");
-            string checkout = Console.ReadLine();
-            if (!(checkout == "y"))
-            {
-                Console.WriteLine("Added to your cart");
-                Console.WriteLine();
-                DisplayDB(num5);
-                Decide(num6);
-            }
+        //    Console.WriteLine("Great choice! Are you ready to check out? (y/n)");
+        //    string checkout = Console.ReadLine();
+        //    if (!(checkout == "y"))
+        //    {
+        //        Console.WriteLine("Added to your cart");
+        //        Console.WriteLine();
+        //        DisplayDB(num5);
+        //        Decide(num6);
+        //    }
 
-            else
-                Console.WriteLine($"Your total is $ total");
+        //    else
+        //        Console.WriteLine($"Your total is $ total");
 
         }
     }
-}
+

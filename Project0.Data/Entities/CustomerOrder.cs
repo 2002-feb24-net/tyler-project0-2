@@ -7,17 +7,17 @@ namespace Project0.Data.Entities
     {
         public CustomerOrder()
         {
-            Product = new HashSet<Product>();
+            Orderline = new HashSet<Orderline>();
         }
 
         public int OrderId { get; set; }
         public int StoreId { get; set; }
-        public int CustomerId { get; set; }
         public DateTime? OrderDate { get; set; }
         public decimal Total { get; set; }
+        public int? CustomerId { get; set; }
 
         public virtual Customer Customer { get; set; }
         public virtual Store Store { get; set; }
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<Orderline> Orderline { get; set; }
     }
 }

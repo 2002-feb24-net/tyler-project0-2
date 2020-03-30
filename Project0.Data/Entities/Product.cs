@@ -5,16 +5,18 @@ namespace Project0.Data.Entities
 {
     public partial class Product
     {
+        public Product()
+        {
+            Inventory = new HashSet<Inventory>();
+            Orderline = new HashSet<Orderline>();
+        }
+
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public decimal Price { get; set; }
-        public int ProductGroupId { get; set; }
-        public int? OrderId { get; set; }
-        public int? StoreId { get; set; }
         public int? Qauntity { get; set; }
 
-        public virtual CustomerOrder Order { get; set; }
-        public virtual ProductGroup ProductGroup { get; set; }
-        public virtual Store Store { get; set; }
+        public virtual ICollection<Inventory> Inventory { get; set; }
+        public virtual ICollection<Orderline> Orderline { get; set; }
     }
 }

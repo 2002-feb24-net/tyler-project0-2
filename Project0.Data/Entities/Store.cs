@@ -8,7 +8,7 @@ namespace Project0.Data.Entities
         public Store()
         {
             CustomerOrder = new HashSet<CustomerOrder>();
-            Product = new HashSet<Product>();
+            Inventory = new HashSet<Inventory>();
         }
 
         public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace Project0.Data.Entities
         public int? Zip { get; set; }
 
         public virtual ICollection<CustomerOrder> CustomerOrder { get; set; }
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<Inventory> Inventory { get; set; }
     }
 }

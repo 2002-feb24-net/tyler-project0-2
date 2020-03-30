@@ -45,84 +45,84 @@ namespace Project0.Data
             }
         }
 
-        public int Decide()
-        {
-            using(var con = new Project0Context())
-            {
-/*                var store = con.Store.FirstOrDefault(s => s.City == userIn);
-*/             /*   if(store == null)
-                { 
-                    Console.WriteLine();
-                    Console.Write("That's not an option. Try again: ");
-                    Decide(userIn);
+//        public int Decide()
+//        {
+//            using(var con = new Project0Context())
+//            {
+///*                var store = con.Store.FirstOrDefault(s => s.City == userIn);
+//*/             /*   if(store == null)
+//                { 
+//                    Console.WriteLine();
+//                    Console.Write("That's not an option. Try again: ");
+//                    Decide(userIn);
 
-                }*/
+//                }*/
 
-                int num3 = 0;
-                int num4 = 1;
+//                int num3 = 0;
+//                int num4 = 1;
 
-                string message = "Welcome to the Pizza Planet Console Application!";
-                Console.WriteLine(message);
-                Border(message);
+//                string message = "Welcome to the Pizza Planet Console Application!";
+//                Console.WriteLine(message);
+//                Border(message);
 
-                Console.WriteLine($"Press 8 to go to previous menu");
-                Console.WriteLine("Press 0 to exit");
-                Console.WriteLine();
+//                Console.WriteLine($"Press 8 to go to previous menu");
+//                Console.WriteLine("Press 0 to exit");
+//                Console.WriteLine();
 
-                // Display food options
-                foreach (var item in context.ProductGroup)
-                {
-                    Console.WriteLine($"{item.GroupId}. \t {item.GroupName}");
-                }
-                Console.WriteLine();
-                Console.Write("What would you like? ");
+//                // Display food options
+//                //foreach (var item in context.ProductGroup)
+//                //{
+//                //    Console.WriteLine($"{item.GroupId}. \t {item.GroupName}");
+//                //}
+//                //Console.WriteLine();
+//                //Console.Write("What would you like? ");
 
-                var GroupIdInput = Console.ReadLine();
-                /*if (num4 == 1)
-                {*/
-                var GroupId = int.Parse(GroupIdInput);
-                return GroupId;
+//                //var GroupIdInput = Console.ReadLine();
+//                ///*if (num4 == 1)
+//                //{*/
+//                //var GroupId = int.Parse(GroupIdInput);
+//                //return GroupId;
 
-                    //PageStruct(userIn);
-                    /*switch (userIn)
-                    {
-                        case 1:
-                            return 1;
-                            break;
-                        case 2:
-                            PlaceOrder(2, store);
-                            break;
-                        case 3:
-                            PlaceOrder(3, store);
-                            break;
-                        case 4:
-                            PlaceOrder(4, store);
-                            break;
-                        case 5:
-                            PlaceOrder(5, store);
-                            break;
-                        case 8:
-                            var o2 = new Order();
-                            var store = o2.PickStore();
-                            return store;
-                            break;
-                        case 0:
-                            Console.WriteLine("Good bye!");
-                            Environment.Exit(0);
-                            break;
-                        default:
-                            Decide(userIn);
-                            break;
-                    }*/
+//                    //PageStruct(userIn);
+//                    /*switch (userIn)
+//                    {
+//                        case 1:
+//                            return 1;
+//                            break;
+//                        case 2:
+//                            PlaceOrder(2, store);
+//                            break;
+//                        case 3:
+//                            PlaceOrder(3, store);
+//                            break;
+//                        case 4:
+//                            PlaceOrder(4, store);
+//                            break;
+//                        case 5:
+//                            PlaceOrder(5, store);
+//                            break;
+//                        case 8:
+//                            var o2 = new Order();
+//                            var store = o2.PickStore();
+//                            return store;
+//                            break;
+//                        case 0:
+//                            Console.WriteLine("Good bye!");
+//                            Environment.Exit(0);
+//                            break;
+//                        default:
+//                            Decide(userIn);
+//                            break;
+//                    }*/
 
-               /* }*/
+//               /* }*/
 
-            }
+//            }
 
             
 
 
-        }
+//        }
 
         public static Project0Context context = new Project0Context();
         public static CustomerOrder cart = new CustomerOrder();
@@ -159,17 +159,17 @@ namespace Project0.Data
         
 
 
-        public void DisplayFoodOptions()
-        {
+        //public void DisplayFoodOptions()
+        //{
            
 
-            foreach (var item in context.ProductGroup)
-            {
-                Console.WriteLine($"{item.GroupId}. \t {item.GroupName}");
-            }
-            Console.WriteLine();
-            Console.Write("What would you like? ");
-        }
+        //    foreach (var item in context.ProductGroup)
+        //    {
+        //        Console.WriteLine($"{item.GroupId}. \t {item.GroupName}");
+        //    }
+        //    Console.WriteLine();
+        //    Console.Write("What would you like? ");
+        //}
 
        
 
@@ -222,217 +222,100 @@ namespace Project0.Data
 
 
 
-        public void PlaceOrder(int groupID, Store store, Customer customer)
-        {
-            using (var ctx = new Project0Context())
-            {
+        //public void PlaceOrder(int groupID, Store store, Customer customer)
+        //{
+        //    using (var ctx = new Project0Context())
+        //    {
 
-                var productGroup = ctx.ProductGroup.FirstOrDefault(a => a.GroupId == groupID);
-                var productsInGroup = ctx.Product.FirstOrDefault(b => b.ProductId == productGroup.GroupId);
-
-
-
-                string select = "";
+        //        var productGroup = ctx.ProductGroup.FirstOrDefault(a => a.GroupId == groupID);
+        //        var productsInGroup = ctx.Product.FirstOrDefault(b => b.ProductId == productGroup.GroupId);
 
 
 
-                string mesg = "Welcome to the " + productGroup.GroupName + " Page!";
-                Console.WriteLine(mesg);
-                Border(mesg);
-                var listOfType = from type in ctx.Product // type of food
-                                 where type.ProductGroupId == groupID
-                                 select type;
-
-
-                /* foreach (var item in listOfType)
-                 {
-                     Console.WriteLine($"'{item.ProductName}' ");
-                 }
-                 Console.WriteLine();
-                 Console.WriteLine();*/
-
-                Console.WriteLine("Press the corresponding number: ");
-
-                //displays products
-                foreach (var item2 in listOfType)
-                {
-                    Console.WriteLine($"{item2.ProductId} {item2.ProductName} {productGroup.GroupName} ${item2.Price}");
-                }
-
-                Console.Write("Enter number to select");
-                var pickedProductId = int.Parse(Console.ReadLine());
-                var price = ctx.Product.FirstOrDefault(x => x.ProductId == pickedProductId);
-
-                // find product id for product name
-                var today = new DateTime();
-
-                var order = new CustomerOrder
-                {
-                    StoreId = store.Id,
-                    CustomerId = customer.Id,
-                    OrderDate = DateTime.Now.Date,
-                    Total = price.Price
-
-
-                };
-                ctx.Add(order);
-                ctx.SaveChanges();
+        //        string select = "";
 
 
 
-                //SelectOrder(select);
-                int num5 = 0;
-                int num6 = 0;
-
-                Console.WriteLine("Great choice! Are you ready to check out? (y/n)");
-                string checkout = Console.ReadLine();
-                if (!(checkout == "y"))
-                {
-                    Console.WriteLine("Added to your cart");
-                    Console.WriteLine();
-
-                    /*DisplayDB(num5);
-                    Decide(num6);*/
-                }
-
-                else
-                {
-                    DateTime ymD = new DateTime();
-                    var todayMonth = ymD.ToString("yyyy-mm-dd");
-                    //var storeInfo = from type in ctx.CustomerOrder
-                    //                where type.Customer.FirstName == customerName
-                    //                select type;
-
-                    var date = DateTime.Now.Date;
-
-                    Console.WriteLine("Your total order is :");
-                    Console.WriteLine($"Customer ID: {customer.Id} Total Price: {price.Price} Date Order: {DateTime.Now.Date}");
-                    Console.WriteLine();
-                    Console.WriteLine("Good-bye seeo you soon!");
+        //        string mesg = "Welcome to the " + productGroup.GroupName + " Page!";
+        //        Console.WriteLine(mesg);
+        //        Border(mesg);
+        //        var listOfType = from type in ctx.Product // type of food
+        //                         where type.ProductGroupId == groupID
+        //                         select type;
 
 
+        //        /* foreach (var item in listOfType)
+        //         {
+        //             Console.WriteLine($"'{item.ProductName}' ");
+        //         }
+        //         Console.WriteLine();
+        //         Console.WriteLine();*/
 
-                }
-            }
+        //        Console.WriteLine("Press the corresponding number: ");
 
+        //        //displays products
+        //        foreach (var item2 in listOfType)
+        //        {
+        //            Console.WriteLine($"{item2.ProductId} {item2.ProductName} {productGroup.GroupName} ${item2.Price}");
+        //        }
 
+        //        Console.Write("Enter number to select");
+        //        var pickedProductId = int.Parse(Console.ReadLine());
+        //        var price = ctx.Product.FirstOrDefault(x => x.ProductId == pickedProductId);
 
-            //public void SelectOrder(string orderIn)
-            //{
+        //        // find product id for product name
+        //        var today = new DateTime();
 
-            //    Console.Write("Would what you like? ");
-            //    orderIn = Console.ReadLine();
-
-            //    using(var ctx = new Project0Context())
-            //    {
-            //        int id = 1;
-            //        var d = ctx.Product.FirstOrDefault(a => a.ProductName == orderIn);
-            //        if(d == null)
-            //        {
-            //            Console.WriteLine("That order doesn't exsist. Try again");
-            //            SelectOrder(orderIn);
-            //        }
-            //        else
-            //        {
-            //            var cOrder = new CustomerOrder();
-            //            cOrder.StoreId = int.Parse(d.OrderId);
-            //            cOrder.CustomerId = id;
-            //            cOrder.OrderDate = DateTime.Now;
-            //            cOrder.Total = d.Price;
-            //            ctx.Add(cOrder);
-            //            try
-            //            {
-            //                ctx.SaveChanges();
-            //            }
-            //            catch (Exception ex)
-            //            {
-
-            //                Console.WriteLine("Save didn't work");
-            //                Console.WriteLine(ex.Message);
-            //            }
+        //        var order = new CustomerOrder
+        //        {
+        //            StoreId = store.Id,
+        //            CustomerId = customer.Id,
+        //            OrderDate = DateTime.Now.Date,
+        //            Total = price.Price
 
 
-            //        }
-            //    }
-            //}
-
-            /*public void BackAgain()
-            {
-                int num5 = 0;
-                int num6 = 0;
-
-                Console.WriteLine("Great choice! Are you ready to check out? (y/n)");
-                string checkout = Console.ReadLine();
-                if (!(checkout == "y"))
-                {
-                    Console.WriteLine("Added to your cart");
-                    Console.WriteLine();
-                    DisplayDB(num5);
-                    Decide(num6);
-                }
-
-                else
-                    Console.WriteLine($"Your total is $ total");
-
-            }*/
+        //        };
+        //        ctx.Add(order);
+        //        ctx.SaveChanges();
 
 
 
+        //        //SelectOrder(select);
+        //        int num5 = 0;
+        //        int num6 = 0;
+
+        //        //Console.WriteLine("Great choice! Are you ready to check out? (y/n)");
+        //        //string checkout = Console.ReadLine();
+        //        //if (!(checkout == "y"))
+        //        //{
+        //        //    Console.WriteLine("Added to your cart");
+        //        //    Console.WriteLine();
+
+        //        //    /*DisplayDB(num5);
+        //        //    Decide(num6);*/
+        //        //}
+
+        //        //else
+        //        //{
+        //        //    DateTime ymD = new DateTime();
+        //        //    var todayMonth = ymD.ToString("yyyy-mm-dd");
+        //        //    //var storeInfo = from type in ctx.CustomerOrder
+        //        //    //                where type.Customer.FirstName == customerName
+        //        //    //                select type;
+
+        //        //    var date = DateTime.Now.Date;
+
+        //        //    Console.WriteLine("Your total order is :");
+        //        //    Console.WriteLine($"Customer ID: {customer.Id} Total Price: {price.Price} Date Order: {DateTime.Now.Date}");
+        //        //    Console.WriteLine();
+        //        //    Console.WriteLine("Good-bye seeo you soon!");
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-            //public void SelectOrder(string orderIn)
-            //{
-
-            //    Console.Write("Would what you like? ");
-            //    orderIn = Console.ReadLine();
-
-            //    using(var ctx = new Project0Context())
-            //    {
-            //        int id = 1;
-            //        var d = ctx.Product.FirstOrDefault(a => a.ProductName == orderIn);
-            //        if(d == null)
-            //        {
-            //            Console.WriteLine("That order doesn't exsist. Try again");
-            //            SelectOrder(orderIn);
-            //        }
-            //        else
-            //        {
-            //            var cOrder = new CustomerOrder();
-            //            cOrder.StoreId = int.Parse(d.OrderId);
-            //            cOrder.CustomerId = id;
-            //            cOrder.OrderDate = DateTime.Now;
-            //            cOrder.Total = d.Price;
-            //            ctx.Add(cOrder);
-            //            try
-            //            {
-            //                ctx.SaveChanges();
-            //            }
-            //            catch (Exception ex)
-            //            {
-
-            //                Console.WriteLine("Save didn't work");
-            //                Console.WriteLine(ex.Message);
-            //            }
-
-
-            //        }
-            //    }
-            //}
-
-
+        //        //}
+        //    }
         }
         
     }
-}
+
+
