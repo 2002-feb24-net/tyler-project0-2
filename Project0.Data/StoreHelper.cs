@@ -8,8 +8,10 @@ namespace Project0.Data
 {
     public class StoreHelper
     {
-        public void UserPicksStore()
+        public Store UserPicksStore()
         {
+            
+
             using (var ctx = new Project0Context())
             {
                 Console.WriteLine("List of stores");
@@ -23,18 +25,26 @@ namespace Project0.Data
                 string selectStore = Console.ReadLine();
 
                 var returnStore = ctx.Store.FirstOrDefault(b => b.City == selectStore);
+                
 
                 if(returnStore == null)
                 {
                     Console.WriteLine("That is not a valid choice");
                     UserPicksStore();
                 }
-                else
-                {
-                    Console.WriteLine($"You have selected store {returnStore.Id}");
-                }
-            }
 
+                var store1 = new Store
+                {
+                    Id = returnStore.Id,
+                    Street = returnStore.Street,
+                    City = returnStore.City,
+                    State = returnStore.State,
+                    Zip = returnStore.Zip,
+
+                };
+                return store1;
+
+            }
         }
     }
 }

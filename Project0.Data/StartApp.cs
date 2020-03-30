@@ -44,11 +44,27 @@ namespace Project0.Data
                     MainMenu();
                     break;
                 case 3:
-                    var store1 = new StoreHelper();
-                    store1.UserPicksStore();
+                    var storeHelp = new StoreHelper();
+                    var userStore = storeHelp.UserPicksStore();
+                    string message = $"Welcome to the Pizza Planet Store on {userStore.Street}";
+                    Console.WriteLine(message);
+                    MessageBorder(message);
+                    var OrderHelper = new OrderHelp();
+                    OrderHelper.CustomerOrder();
+                    
                     break;
 
             }
+        }
+
+        public void MessageBorder(string text)
+        {
+            for(int a = 0; a <text.Length; ++a)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 }
