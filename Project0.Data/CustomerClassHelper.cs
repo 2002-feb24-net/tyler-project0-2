@@ -38,8 +38,9 @@ namespace Project0.App
         }
 
 
-        public void AddCustomer(Customer cust1)
+        public Customer AddCustomer()
         {
+            var cust1 = new Customer();
             try
             {
                 Console.Write("What is your first name: ");
@@ -48,12 +49,12 @@ namespace Project0.App
                 Console.Write("What is your last name: ");
                 cust1.LastName = Console.ReadLine();
                 Console.WriteLine();
-                UserNamePass(cust1);
+                UserNamePass();
             }
             catch (FormatException)
             {
                 Console.WriteLine("You didn't the connect type");
-                AddCustomer(cust1);
+                AddCustomer();
             }
 
             ctx.Add(cust1);
@@ -66,6 +67,8 @@ namespace Project0.App
             {
                 Console.WriteLine("Save didn't work.");
             }
+
+            return cust1;
         }
 
 
@@ -93,8 +96,9 @@ namespace Project0.App
             }
         }
 
-        public void UserNamePass(Customer cust1)
+        public void UserNamePass()
         {
+            var cust1 = new Customer();
             string password2 = "";
 
 
@@ -112,11 +116,11 @@ namespace Project0.App
             catch (FormatException)
             {
                 Console.WriteLine("You enter a wrong character. Try again");
-                UserNamePass(cust1);
+                UserNamePass();
             }
 
             if (cust1.Password != password2)
-                UserNamePass(cust1);
+                UserNamePass();
         }
 
         public void SearchForCustomerOrder()
@@ -144,7 +148,7 @@ namespace Project0.App
             }
         }
 
-        public Customer OldCustomer(Customer c1)
+        public Customer OldCustomer()
         {
             using (var ct = new Project0Context())
             {
@@ -157,9 +161,10 @@ namespace Project0.App
                     string text2 = Console.ReadLine();
 
                     var customer = ct.Customer.FirstOrDefault(a => a.UserName == text);
-                    if (customer.Password == text2)
+                    if (customer.Password != text2)
                     {
-                        Console.WriteLine($"Welcome back {customer.FirstName}! ");
+                        Console.WriteLine("Sorry Username and Password didn't match. Try again");
+                        return OldCustomer();
 
                     }
                     return customer;

@@ -20,6 +20,7 @@ namespace Project0.Data.Entities
         public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<Orderline> Orderline { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ProductGroup> ProductGroup { get; set; }
         public virtual DbSet<Store> Store { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -90,8 +91,6 @@ namespace Project0.Data.Entities
 
             modelBuilder.Entity<Inventory>(entity =>
             {
-                entity.Property(e => e.InventoryId).ValueGeneratedNever();
-
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.Inventory)
                     .HasForeignKey(d => d.ProductId)
@@ -135,6 +134,22 @@ namespace Project0.Data.Entities
                     .IsRequired()
                     .HasColumnName("Product_Name")
                     .HasMaxLength(40)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.ProductGroup)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.ProductGroupId)
+                    .HasConstraintName("FK_Product_ProductGroup");
+            });
+
+            modelBuilder.Entity<ProductGroup>(entity =>
+            {
+                entity.HasIndex(e => e.ProductGroupId)
+                    .HasName("UQ__ProductG__0F0D7B2332CE2EB6")
+                    .IsUnique();
+
+                entity.Property(e => e.ProductName)
+                    .HasMaxLength(30)
                     .IsUnicode(false);
             });
 

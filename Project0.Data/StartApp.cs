@@ -6,10 +6,20 @@ using System.Text;
 
 namespace Project0.Data
 {
-    public class StartApp: IUserChooses
+    public class StartApp
     {
         public static CustomerClassHelper helper = new CustomerClassHelper();
         public static Customer customer1 = new Customer();
+
+        public void newOrOld()
+        {
+            Console.WriteLine("Have you been here before? (y/n)");
+            string yesOrNO = Console.ReadLine();
+            if (yesOrNO == "y")
+            {
+                var old = helper.OldCustomer();
+            }
+        }
 
         public void MainMenu()
         {
@@ -31,29 +41,34 @@ namespace Project0.Data
 
         public void Decide(int userIn)
         {
-            userIn = int.Parse(Console.ReadLine());
-
-            switch(userIn)
+            try
             {
-                case 1:
-                    helper.AddCustomer(customer1);
-                    MainMenu();
-                    break;
-                case 2:
-                    helper.SearchforCustomer();
-                    MainMenu();
-                    break;
-                case 3:
-                    var storeHelp = new StoreHelper();
-                    var userStore = storeHelp.UserPicksStore();
-                    string message = $"Welcome to the Pizza Planet Store on {userStore.Street}";
-                    Console.WriteLine(message);
-                    MessageBorder(message);
-                    var OrderHelper = new OrderHelp();
-                    OrderHelper.CustomerOrder();
-                    
-                    break;
+                userIn = int.Parse(Console.ReadLine());
 
+                switch (userIn)
+                {
+                    case 1:
+                        helper.AddCustomer();
+                        MainMenu();
+                        break;
+                    case 2:
+                        helper.SearchforCustomer();
+                        MainMenu();
+                        break;
+                    case 3:
+                        var storeHelp = new StoreHelper();
+                        var myOrder = new OrderHelp();
+                        var userStore = storeHelp.UserPicksStore();
+                        string message = $"Welcome to the Pizza Planet Store on {userStore.Street}";
+                        Console.WriteLine(message);
+                        MessageBorder(message);
+                        break;
+                }
+            }
+            catch(FormatException)
+            {
+                Console.WriteLine("That is not a valid option. Try again");
+                Decide(userIn);
             }
         }
 
