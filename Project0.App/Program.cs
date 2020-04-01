@@ -47,7 +47,7 @@ namespace Project0.App
 
         public static Customer HaveYouBeenHereBefore()
         {
-            var currentCustomer = new CustomerClassHelper();
+            var currentCustomer = new UserSystem();
 
             Console.Write("Welcome! Have you been here before? (y/n):");
             string mainUserInput = Console.ReadLine();
