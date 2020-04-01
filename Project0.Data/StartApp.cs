@@ -9,6 +9,7 @@ namespace Project0.Data
     public class StartApp
     {
         public static CustomerClassHelper helper = new CustomerClassHelper();
+        public static Login LoginClass = new Login();
         public static Customer customer1 = new Customer();
 
         public void NewOrOld()
@@ -17,17 +18,15 @@ namespace Project0.Data
             string yesOrNO = Console.ReadLine();
             if (yesOrNO == "y")
             {
-                var old = helper.OldCustomer();
+                _ = LoginClass.OldCustomer();
             }
         }
 
         public void MainMenu()
         {
             int mainInput = 0;
-
-            Customer c1 = new Customer();
+            _ = new Customer();
             string[] options = { "Add a customer", "Search for a customer", "Order", "Search for a customer's order details", "Search for orders by the store's ID" };
-            int num1 = 0;
 
             for (int i = 1; i <= options.Length; i++)
             {
@@ -48,7 +47,7 @@ namespace Project0.Data
                 switch (userIn)
                 {
                     case 1:
-                        helper.AddCustomer();
+                        LoginClass.AddCustomer();
                         MainMenu();
                         break;
                     case 2:

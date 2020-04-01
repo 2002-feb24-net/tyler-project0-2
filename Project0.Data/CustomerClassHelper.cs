@@ -38,38 +38,7 @@ namespace Project0.App
         }
 
 
-        public Customer AddCustomer()
-        {
-            var cust1 = new Customer();
-            try
-            {
-                Console.Write("What is your first name: ");
-                cust1.FirstName = Console.ReadLine();
-                Console.WriteLine();
-                Console.Write("What is your last name: ");
-                cust1.LastName = Console.ReadLine();
-                Console.WriteLine();
-                UserNamePass();
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("You didn't the connect type");
-                AddCustomer();
-            }
-
-            ctx.Add(cust1);
-            try
-            {
-                ctx.SaveChanges();
-                Console.WriteLine("Added to Database.");
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Save didn't work.");
-            }
-
-            return cust1;
-        }
+        
 
 
         public void SearchCustoemrOrderInStore()
@@ -96,32 +65,7 @@ namespace Project0.App
             }
         }
 
-        public void UserNamePass()
-        {
-            var cust1 = new Customer();
-            string password2 = "";
-
-
-            try
-            {
-                Console.Write("Enter a username: ");
-                cust1.UserName = Console.ReadLine();
-                Console.WriteLine();
-                Console.Write("Enter a password: ");
-                cust1.Password = Console.ReadLine();
-                Console.WriteLine();
-                Console.Write("Verify password: ");
-                password2 = Console.ReadLine();
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("You enter a wrong character. Try again");
-                UserNamePass();
-            }
-
-            if (cust1.Password != password2)
-                UserNamePass();
-        }
+        
 
         public void SearchForCustomerOrder()
         {
