@@ -11,7 +11,7 @@ namespace Project0.Data
         public static CustomerClassHelper helper = new CustomerClassHelper();
         public static Customer customer1 = new Customer();
 
-        public void newOrOld()
+        public void NewOrOld()
         {
             Console.WriteLine("Have you been here before? (y/n)");
             string yesOrNO = Console.ReadLine();

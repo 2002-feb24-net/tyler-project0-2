@@ -9,42 +9,37 @@ namespace Project0.App
     {
         static void Main()
         {
-            using (var ctx = new Project0Context())
+            using var ctx = new Project0Context();
+            var current = HaveYouBeenHereBefore();
+            Console.WriteLine($"Weclome {current.FirstName}");
+            var start = new StartApp();
+            start.MainMenu();
+            var OrderMain = new OrderHelp();
+            string mainOrder = OrderMain.CustomerOrder();
+
+            var customerTotal = ctx.Product.FirstOrDefault(m => m.ProductName == mainOrder);
+
+
+            var order = new CustomerOrder
             {
+                StoreId = 2,
+                OrderDate = DateTime.Now.Date,
+                Total = customerTotal.Price,
+                CustomerId = current.Id,
+            };
 
-                var current = HaveYouBeenHereBefore();
-                Console.WriteLine($"Weclome {current.FirstName}");
-                var start = new StartApp();
-                start.MainMenu();
-                var OrderMain = new OrderHelp();
-                string mainOrder = OrderMain.CustomerOrder();
-
-                var customerTotal = ctx.Product.FirstOrDefault(m => m.ProductName == mainOrder);
-
-
-                var order = new CustomerOrder
-                {
-                    StoreId = 2,
-                    OrderDate = DateTime.Now.Date,
-                    Total = customerTotal.Price,
-                    CustomerId = current.Id,
-                };
-
-                ctx.Add(order);
-                try
-                {
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine("Your order is added.");
-                }
-                
-
+            ctx.Add(order);
+            try
+            {
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Your order is added.");
             }
 
 
